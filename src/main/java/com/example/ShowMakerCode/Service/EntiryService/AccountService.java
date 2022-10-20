@@ -27,4 +27,10 @@ public interface AccountService {
 
     @Query(value = "select o from Account o where o.username = ?1 and o.password = ?2", nativeQuery = false)
     Account findByUsernameandPass(String username, String password);
+
+    @Query(value = "select  o from Account o where o.email = ?1 and o.status = 1", nativeQuery = false)
+    Account findByEmail(String email);
+
+    @Query("select  o from  Account o where o.status =1")
+    List<Account> getAllByActive();
 }

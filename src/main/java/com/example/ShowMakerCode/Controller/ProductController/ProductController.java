@@ -15,11 +15,12 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
 @Controller
-@RequestMapping("smk/product")
+@RequestMapping("smk/admin/product")
 public class ProductController {
     @Autowired
     HttpServletRequest request;
@@ -58,6 +59,34 @@ public class ProductController {
         product.setQuantitySold(0);
         product.setAvailable((byte) 1);
         productService.save(product);
-        return "redirect:/smk/product/list-product";
+        return "redirect:/smk/admin/product/list-product";
+    }
+    @GetMapping("update-product/{idPropduct}")
+    public String updateHome(Model model,@ModelAttribute("idPropduct")Long id){
+        Product product = productService.findByIdProduct(id);
+        model.addAttribute("product",product);
+        List<Category> categoryList = categoryService.findAll();
+        model.addAttribute("categorys",categoryList);
+        return "site/product/update";
+    }
+    @PostMapping("update-product")
+    public String updatePost(@RequestParam("file")MultipartFile file,@ModelAttribute("product")Product product,Model model){
+        Category category = categoryService.cFindById(Long.valueOf(request.getParameter("categoryId")));
+        product.setCategory(category);
+        Account account = sessionService.get(SessionAttr.CURRENT_USER);
+        product.setModifiedBy(account.getUsername());
+        product.setModifiedDate(new Date().toInstant());
+        product.setImage(uploadService.posst(file));
+        productService.saveAndFlush(product);
+        return "redirect:/smk/admin/product/list-product";
+    }
+    @GetMapping("delete-product/{idPropduct}")
+    public String Delete(Model model,@ModelAttribute("idPropduct")Long id){
+        try {
+            productService.deleteById(id);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return "redirect:/smk/admin/product/list-product";
     }
 }

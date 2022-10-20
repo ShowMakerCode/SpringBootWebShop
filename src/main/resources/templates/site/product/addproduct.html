@@ -20,7 +20,7 @@
     <div class="container">
         <div class="container" th:replace="/site/layout/menu :: nav"></div>
         <div>
-            <form action="/smk/product/add-product" enctype="multipart/form-data" method="post" th:object="${product}">
+            <form action="/smk/admin/product/add-product" enctype="multipart/form-data" method="post" th:object="${product}">
                 <div class="mb-3">
                     <label for="images1" class="form-label">Images</label>
                     <input type="file" class="form-control" id="images1" name="file">
@@ -40,6 +40,10 @@
                 <div class="mb-3">
                     <label for="text3" class="form-label">Quantity</label>
                     <input type="text" class="form-control" id="text3" th:field="*{quantity}">
+                </div>
+                <div class="mb-3">
+                    <label for="text4x" class="form-label">Size</label>
+                    <input type="text" class="form-control" id="text4x" placeholder="S,M,L,XL,XXL" th:field="*{size}" >
                 </div>
                 <div class="mb-3">
                     <label for="text4" class="form-label">Price</label>

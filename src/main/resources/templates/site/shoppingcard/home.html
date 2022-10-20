@@ -21,6 +21,7 @@
     <th scope="col">#</th>
     <th scope="col">Name</th>
     <th scope="col">Quantity</th>
+    <th scope="col">Size</th>
     <th scope="col">Price</th>
     <th scope="col">Images</th>
     <th scope="col"></th>
@@ -32,11 +33,15 @@
     <th scope="row" th:text="${stt.index}"></th>
     <td th:text="${item.getName()}"></td>
     <td>
-      <input type="hidden" th:value="${item.getId()}" th:name="idpro">
-      <input type="number" min="1" th:value="${item.getQuantity()}" th:name="quantity" onblur="this.form.submit()"></td>
+      <input type="hidden" th:value="${item.getId()+item.getSize()}" th:name="idpro">
+      <input type="number" min="1" th:value="${item.getQuantity()}" th:name="quantity" onblur="this.form.submit()">
+    </td>
+      <td th:text="${item.getSize()}">
+
+      </td>
     <td th:text="${item.getPrice()}"></td>
     <td><img class="rounded-circle" style="width: 50px ;height: 50px" th:src="@{/images/{uid}(uid=${item.getImage()})}"></td>
-    <td> <a th:href="@{/smk/card/remove/{idx}(idx=${item.getId()})}">Remove</a></td>
+    <td> <a th:href="@{/smk/card/remove/{idx}(idx=${item.getId()+item.getSize()})}">Remove</a></td>
     </form>
   </tr>
   </tbody>

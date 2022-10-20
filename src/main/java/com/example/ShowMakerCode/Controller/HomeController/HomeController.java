@@ -41,7 +41,7 @@ public class HomeController {
     @GetMapping("homepage")
     public String homepage(Model model){
         sessionService.set("urlMainText",request.getRequestURI());
-        sessionService.set("countCard",shoppingCardService.getCount());
+
         Account account = (Account) request.getSession().getAttribute(SessionAttr.CURRENT_USER);
         String accountRole = (String) request.getSession().getAttribute(SessionAttr.ROLE_ACCOUNT);
         model.addAttribute("UserCurrent",account);
@@ -91,46 +91,9 @@ public class HomeController {
     return "site/homePage";
     }
 
-    @GetMapping("/card")
-    public String shoppingCard(Model model){
-        Collection<ShoppingCard> cardItems = shoppingCardService.getCardItems();
-        model.addAttribute("cardItems",cardItems);
-        model.addAttribute("total",shoppingCardService.getAmount());
-        model.addAttribute("noOfItems",shoppingCardService.getCount());
-        return "site/shoppingcard/home";
-    }
 
-    @GetMapping("/card/add/{idAddToCard}")
-    public String add(@PathVariable("idAddToCard")Long productId){
-        Product product = productService.findByIdProduct(productId);
-        if (product != null){
-            ShoppingCard item = new ShoppingCard();
-            BeanUtils.copyProperties(product,item);
-            item.setQuantity(1);
-            shoppingCardService.add(item);
-        }
 
-        return "redirect:"+sessionService.get("urlMainText");
-    }
-    @GetMapping("card/remove/{idAddToCard}")
-    public String remove(@PathVariable("idAddToCard")Integer idProduct){
-        sessionService.set("countCard",shoppingCardService.getCount());
-        shoppingCardService.remove(idProduct);
-        return "redirect:/smk/card";
-    }
-    @GetMapping("card/update")
-    public String update(Model model, @ModelAttribute("quantity")Integer quantity,@ModelAttribute("idpro")Long productId){
-        System.out.println(quantity);
-        System.out.println(productId);
-        shoppingCardService.update(productId,quantity);
-        return "redirect:/smk.card";
-    }
-    @GetMapping("card/clear")
-    public String clear(){
-        sessionService.set("countCard",shoppingCardService.getCount());
-        shoppingCardService.clear();
-        return "redirect:/smk/card";
-    }
+
 
     @GetMapping("homepage/category/{idCategory}")
     public String categoryList(Model model,@PathVariable("idCategory")Long idCate){
@@ -139,7 +102,6 @@ public class HomeController {
         }
         sessionService.set("urlMainText",request.getRequestURI());
         model.addAttribute("cateId",idCate);
-        sessionService.set("countCard",shoppingCardService.getCount());
         Account account = (Account) request.getSession().getAttribute(SessionAttr.CURRENT_USER);
         String accountRole = (String) request.getSession().getAttribute(SessionAttr.ROLE_ACCOUNT);
         model.addAttribute("UserCurrent",account);

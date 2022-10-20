@@ -88,4 +88,10 @@ public class ProductServiceIplm implements ProductService {
     public List<Product> findByCategory(Long id) {
         return productRepository.findByCategory(id);
     }
+
+    @Override
+    @Query(value = "SELECT * FROM java5_asm.product  WHERE category_id = ?1 and id!=?2 and available=1 ORDER BY RAND() LIMIT 5", nativeQuery = true)
+    public List<Product> getAllByRanDom(Long cateID, Long idProduct) {
+        return productRepository.getAllByRanDom(cateID, idProduct);
+    }
 }

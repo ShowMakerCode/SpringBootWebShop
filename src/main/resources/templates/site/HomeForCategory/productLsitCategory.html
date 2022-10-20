@@ -21,7 +21,8 @@
         <div class="row collapse show" id="collapseExample" name="top10sanpham">
           <div class="col-sm-3" th:each="productTop:${productListTop10}" style="padding-top: 15px">
             <form th:action="@{/smk/card/add/{idAddToCardT10}(idAddToCardT10=${productTop.getId()})}" method="get">
-              <section  style="max-width: 23rem;">
+              <a th:href="@{/smk/homepage/detail-product/{id}(id=${productTop.getId()})}" style="text-decoration: none;color: #0c0c0c">
+                <section  style="max-width: 23rem;">
                 <div class="card">
                   <div class="card-header d-flex flex-row">
                     <img th:src="@{/images/admin.png}" class="rounded-circle me-3" height="50px"
@@ -32,13 +33,13 @@
                     </div>
                   </div>
                   <div class="-flex justify-content-evenly" data-mdb-ripple-color="light">
-                    <img class="d-s" th:src="@{/images/{id}(id=${productTop.getImage()})}" style="height: 226px ;width: 223px;text-align: center"  alt="Card image cap" />
+                    <img class="d-s" th:src="@{/images/{id}(id=${productTop.getImage()})}" style="width: 223px;height: 228px;display: block;margin-left: auto;margin-right: auto;"  alt="Card image cap" />
                     <a href="#!">
                       <div style="padding-left: 18px;text-decoration: none;color: black" th:text="${productTop.getName()}"></div>
                     </a>
                   </div>
                   <div class="card-body">
-                    <p class="card-text" id="collapseContent" th:text="'Description: '+${productTop.getDescription()}">
+                    <p class="card-text" id="collapseContent" style="display: inline-block; max-width: 100%; white-space: nowrap; overflow: hidden; overflow-x: hidden; overflow-y: hidden; text-overflow: ellipsis;" th:text="'Description: '+${productTop.getDescription()}">
                     </p>
                     <div class="d-flex justify-content-between">
                       <button class="btn btn-link link-danger p-md-1 my-1" data-mdb-toggle="collapse" type="submit"
@@ -47,13 +48,14 @@
                   </div>
                 </div>
               </section>
+                </a>
             </form>
           </div>
           <div class="col-sm-12 d-flex justify-content-center" style="margin-top: 15px">
             <a class="btn btn-primary" href="/smk/homepage/category?numberpage=1"> |< </a>
-            <a style="margin: 0px 10px 0px 10px" class="btn btn-primary" th:href="@{/smk/homepage/category?numberpage={idpageback}(idpageback =(${numberback==null||numberback==0}?3:${numberback}))}" > << </a>
-            <a class="btn btn-primary" th:href="@{/smk/homepage/category?numberpage={idpagenext}(idpagenext= (${numbernext==pagesize+1}? 1:${numbernext}))}"> >> </a>
-            <a style="margin-left: 10px" class="btn btn-primary" th:href="@{/smk/homepage/category?numberpage={idpage}(idpage=${pagesize})}"> >| </a>
+            <a style="margin: 0px 10px 0px 10px" class="btn btn-primary" th:href="@{/smk/homepage/category/{idOfCate}?numberpage={idpageback}(idpageback =(${numberback==null||numberback==0}?3:${numberback}),idOfCate=${cateId})}" > << </a>
+            <a class="btn btn-primary" th:href="@{/smk/homepage/category/{idOfCate}?numberpage={idpagenext}(idpagenext= (${numbernext==pagesize+1}? 1:${numbernext}),idOfCate=${cateId})}"> >> </a>
+            <a style="margin-left: 10px" class="btn btn-primary" th:href="@{/smk/homepage/category/{idOfCate}?numberpage={idpage}(idpage=${pagesize},idOfCate=${cateId})}"> >| </a>
           </div>
         </div>
       </div>
@@ -61,10 +63,11 @@
         <div class="btn btn-primary " style="margin-bottom: 55px ; width: 100%"> Sản Phẩm SMK Shop</div>
         <div class="col-sm-3" th:each="productx:${productList}">
           <form th:action="@{/smk/card/add/{idAddToCard}(idAddToCard=${productx.getId()})}" method="get">
+            <a th:href="@{/smk/homepage/detail-product/{id}(id=${productx.getId()})}" style="text-decoration: none;color: #0c0c0c">
             <div>
               <div class="col">
                 <div class="card h-100 shadow-sm"> <img
-                        th:src="@{/images/{idimages}(idimages=${productx.image})}"
+                        th:src="@{/images/{idimages}(idimages=${productx.image})}"style="width: 223px;height: 228px;display: block;margin-left: auto;margin-right: auto;"
                         class="card-img-top" alt="...">
                   <div class="card-body">
                     <div class="clearfix mb-3"> <span class="float-start badge rounded-pill bg-primary" th:text="${productx.getName()}"></span>
@@ -75,6 +78,7 @@
                 </div>
               </div>
             </div>
+            </a>
           </form>
         </div>
       </div>

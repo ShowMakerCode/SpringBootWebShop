@@ -1,12 +1,8 @@
 package com.example.ShowMakerCode.Constant;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
@@ -32,9 +28,7 @@ public class UploadService {
         String dateString=sdf.format(new Date());
         String fileName = StringUtils.cleanPath(file.getOriginalFilename()).substring(0,StringUtils.cleanPath(file.getOriginalFilename()).indexOf("."))+dateString+".png";
         try {
-            System.out.println(StringUtils.getFilename("/images"));
             Path path = Paths.get(x+fileName);
-            System.out.println(path);
             Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException e) {
             System.out.println("Upload Thất Bại");

@@ -9,18 +9,20 @@ import java.util.Collection;
 @Service
 public interface ShoppingCardService {
 
+
     void add(ShoppingCard item);
 
-    void remove(int productID);
+
+    void remove(String productID);
 
     Collection<ShoppingCard> getCardItems();
 
     void clear();
 
 
-    void update(Long productIdMax, int Quantity);
+    void update(String productIdMax, int Quantity);
 
-    double getAmount();
+     double getAmount();
 
     int getCount();
 }

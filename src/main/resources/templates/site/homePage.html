@@ -21,6 +21,7 @@
         <div class="row collapse show" id="collapseExample" name="top10sanpham">
             <div class="col-sm-3" th:each="productTop:${productListTop10}" style="padding-top: 15px">
                 <form th:action="@{/smk/card/add/{idAddToCardT10}(idAddToCardT10=${productTop.getId()})}" method="get">
+                    <a th:href="@{/smk/homepage/detail-product/{id}(id=${productTop.getId()})}" style="text-decoration: none;color: #0c0c0c">
                 <section  style="max-width: 23rem;">
                     <div class="card">
                         <div class="card-header d-flex flex-row">
@@ -32,21 +33,22 @@
                             </div>
                         </div>
                         <div class="-flex justify-content-evenly" data-mdb-ripple-color="light">
-                            <img class="d-s" th:src="@{/images/{id}(id=${productTop.getImage()})}" style="height: 226px ;width: 223px;text-align: center"  alt="Card image cap" />
+                            <img class="d-s" th:src="@{/images/{id}(id=${productTop.getImage()})}" style="width: 223px;height: 228px;display: block;margin-left: auto;margin-right: auto;"  alt="Card image cap" />
                             <a href="#!">
                                 <div style="padding-left: 18px;text-decoration: none;color: black" th:text="${productTop.getName()}"></div>
                             </a>
                         </div>
                         <div class="card-body">
-                            <p class="card-text" id="collapseContent" th:text="'Description: '+${productTop.getDescription()}">
+                            <p class="card-text" id="collapseContent" style="display: inline-block; max-width: 100%; white-space: nowrap; overflow: hidden; overflow-x: hidden; overflow-y: hidden; text-overflow: ellipsis;" th:text="'Description: '+${productTop.getDescription()}">
                             </p>
                             <div class="d-flex justify-content-between">
-                                <button class="btn btn-link link-danger p-md-1 my-1" data-mdb-toggle="collapse" type="submit"
+                                <button class="btn btn-warning" data-mdb-toggle="collapse" type="submit"
                                    >Add to card</button>
                             </div>
                         </div>
                     </div>
                 </section>
+                    </a>
                     </form>
             </div>
             <div class="col-sm-12 d-flex justify-content-center" style="margin-top: 15px">
@@ -60,10 +62,12 @@
         <div class="row" style="padding-top: 55px">
             <div class="btn btn-primary " style="margin-bottom: 55px ; width: 100%"> Sản Phẩm SMK Shop</div>
             <div class="col-sm-3" th:each="productx:${productList}">
+                <div style="margin-bottom: 15px">
             <form th:action="@{/smk/card/add/{idAddToCard}(idAddToCard=${productx.getId()})}" method="get">
                 <div>
+                    <a th:href="@{/smk/homepage/detail-product/{id}(id=${productx.getId()})}" style="text-decoration: none;color: #0c0c0c">
                     <div class="col">
-                        <div class="card h-100 shadow-sm"> <img
+                        <div class="card h-100 shadow-sm">  <img style="width: 223px;height: 228px;display: block;margin-left: auto;margin-right: auto;"
                                 th:src="@{/images/{idimages}(idimages=${productx.image})}"
                                 class="card-img-top" alt="...">
                             <div class="card-body">
@@ -74,8 +78,10 @@
                             </div>
                         </div>
                     </div>
+                        </a>
                 </div>
             </form>
+                </div>
             </div>
         </div>
         <div class="col-sm-12 d-flex justify-content-center" th:if="${pagesizeAll > 1}">

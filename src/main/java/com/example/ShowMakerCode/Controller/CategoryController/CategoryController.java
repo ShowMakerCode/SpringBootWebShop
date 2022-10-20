@@ -62,8 +62,6 @@ public class CategoryController {
             model.addAttribute("category",category);
             return "site/category/updatecategory";
         }
-
-
         return "redirect:/smk/admin/category/list-category";
     }
 

@@ -59,4 +59,16 @@ public class AccountServiceIplm implements AccountService {
     public Account findByUsernameandPass(String username, String password) {
         return accountRepository.findByUsernameandPass(username, password);
     }
+
+    @Override
+    @Query(value = "select  o from Account o where o.email = ?1 and o.status = 1", nativeQuery = false)
+    public Account findByEmail(String email) {
+        return accountRepository.findByEmail(email);
+    }
+
+    @Override
+    @Query("select  o from  Account o where o.status =1")
+    public List<Account> getAllByActive() {
+        return accountRepository.getAllByActive();
+    }
 }

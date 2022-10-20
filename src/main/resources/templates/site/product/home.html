@@ -51,6 +51,7 @@
                                     <th scope="col">Quantity</th>
                                     <th scope="col">Image</th>
                                     <th scope="col">Quantity Sold</th>
+                                    <th scope="coll"></th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -62,6 +63,10 @@
                                     <td th:text="${product.getQuantity()}"></td>
                                     <td><img class="rounded-circle" width="50px" height="50px" th:src="@{/images/{id}(id=${product.getImage()})}"></td>
                                     <td th:text="${product.getQuantitySold}"></td>
+                                    <td>
+                                        <a th:href="@{/smk/admin/product/update-product/{idPropduct}(idPropduct=${product.getId()})}">Update</a>
+                                        <a th:href="@{/smk/admin/product/delete-product/{idPropduct}(idPropduct=${product.getId()})}">Delete</a>
+                                    </td>
                                 </tr>
                                 </tbody>
                             </table>

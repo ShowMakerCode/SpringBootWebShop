@@ -22,6 +22,7 @@ public class ShoppingCard {
     private String name;
     private BigDecimal price;
     private Integer quantity;
+    private String size;
     private String image;
     private Integer quantitySold;
     private Category category;

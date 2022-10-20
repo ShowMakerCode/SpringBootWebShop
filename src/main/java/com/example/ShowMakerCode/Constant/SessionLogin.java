@@ -3,6 +3,7 @@ package com.example.ShowMakerCode.Constant;
 import com.example.ShowMakerCode.Entity.Account;
 import com.example.ShowMakerCode.Entity.AccountRole;
 import com.example.ShowMakerCode.Service.EntiryService.AccountRoleService;
+import com.example.ShowMakerCode.Service.EntiryService.ShoppingCardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
@@ -17,15 +18,21 @@ public class SessionLogin {
     SessionService sessionService;
     @Autowired
     HttpServletRequest request;
+    @Autowired
+    ShoppingCardService shoppingCardService;
 
     public void userIsLogin(Account account){
         sessionService.set(SessionAttr.CURRENT_USER,account);
         AccountRole accountRole= accountRoleService.findByAccount(account);
         sessionService.set(SessionAttr.ROLE_ACCOUNT,accountRole.getRole().getName());
+        sessionService.set("countCard",shoppingCardService.getCount());
     }
     public void logout(){
         sessionService.remove(SessionAttr.CURRENT_USER);
         sessionService.remove(SessionAttr.ROLE_ACCOUNT);
+        shoppingCardService.clear();
+        sessionService.set("countCard",shoppingCardService.getCount());
+
     }
     public void initaccount(Model model){
         Account account = (Account) request.getSession().getAttribute(SessionAttr.CURRENT_USER);
